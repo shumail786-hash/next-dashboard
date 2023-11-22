@@ -1,7 +1,8 @@
+import { addProduct } from "@/app/lib/action.js";
 const AddProductPage = () => {
   return (
     <div className="bg-clrBgSoft px-4 py-4 rounded-lg mt-4">
-      <form action="" className="flex flex-wrap justify-between">
+      <form action={addProduct} className="flex flex-wrap justify-between">
         <input
           type="text"
           placeholder="title"
@@ -34,7 +35,7 @@ const AddProductPage = () => {
           className="form-input"
         />
         <input
-          type="text"
+          type="number"
           placeholder="size"
           name="size"
           className="form-input"
