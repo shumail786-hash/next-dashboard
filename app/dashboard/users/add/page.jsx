@@ -1,7 +1,8 @@
+import { addUser } from "../../../lib/action.js";
 const AddUserPage = () => {
   return (
     <div className="bg-clrBgSoft px-4 py-4 rounded-lg mt-4">
-      <form action="" className="flex flex-wrap justify-between">
+      <form action={addUser} className="flex flex-wrap justify-between">
         <input
           type="text"
           placeholder="username"
@@ -31,16 +32,12 @@ const AddUserPage = () => {
           required
         />
         <select name="isAdmin" id="isAdmin" className="form-select">
-          <option value={false} selected>
-            Is Admin
-          </option>
+          <option value={false}>Is Admin</option>
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </select>
         <select name="isActive" id="isActive" className="form-select">
-          <option value={true} selected>
-            Is Active?
-          </option>
+          <option value={true}>Is Active?</option>
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </select>

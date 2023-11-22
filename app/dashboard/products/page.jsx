@@ -2,7 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Search from "@/app/ui/dashboard/search/search";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
-const ProductsPage = () => {
+import { fetchProduct } from "@/app/lib/data.js";
+const ProductsPage = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  const { count, products } = await fetchProduct(q, page);
   return (
     <div className="bg-clrBgSoft px-4 py-4 rounded-md mt-4">
       <div className="flex items-center justify-between">
@@ -25,39 +29,41 @@ const ProductsPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div className="flex gap-2 items-center">
-                <Image
-                  src="/noproduct.jpg"
-                  alt="user image"
-                  width={40}
-                  height={40}
-                  className="rounded-full object-cover"
-                />
-                Iphone
-              </div>
-            </td>
-            <td>Desc</td>
-            <td>$999</td>
-            <td>12.11.2023</td>
-            <td>20</td>
-            <td>
-              <div className="flex gap-2">
-                <Link href="/dashboard/products/test">
-                  <button className="px-3 py-1 rounded text-clrText border-none cursor-pointer bg-[teal]">
-                    View
+          {products.map((product) => (
+            <tr key={product._id}>
+              <td>
+                <div className="flex gap-2 items-center">
+                  <Image
+                    src={product.img || "/noproduct.jpg"}
+                    alt="product image"
+                    width={40}
+                    height={40}
+                    className="rounded-full object-cover"
+                  />
+                  {product.title}
+                </div>
+              </td>
+              <td>{product.desc}</td>
+              <td>${product.price}</td>
+              <td>{product.createdAt?.toString().slice(4, 16)}</td>
+              <td>{product.stock}</td>
+              <td>
+                <div className="flex gap-2">
+                  <Link href={`/dashboard/products/${product._id}`}>
+                    <button className="px-3 py-1 rounded text-clrText border-none cursor-pointer bg-[teal]">
+                      View
+                    </button>
+                  </Link>
+                  <button className="px-3 py-1 rounded text-clrText border-none cursor-pointer bg-[red]">
+                    Delete
                   </button>
-                </Link>
-                <button className="px-3 py-1 rounded text-clrText border-none cursor-pointer bg-[red]">
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 };
