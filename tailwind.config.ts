@@ -19,7 +19,11 @@ const config: Config = {
         positiveClr : "lime",
         pending: "#f7cb7375",
         done: "#afd6ee75",
-        cancelled: "#f7737375"
+        cancelled: "#f7737375",
+        bgGradient: {
+          1: "#182237",
+          2: "#253352"
+        }
       }
     },
   },

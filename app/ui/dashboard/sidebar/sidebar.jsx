@@ -91,7 +91,7 @@ const Sidebar = () => {
           <span className="text-sm text-clrTextSoft">Admin</span>
         </div>
       </div>
-      <ul className="text-clrTextSoft font-bold text-base my-3">
+      <ul className="text-clrTextSoft font-bold text-[15px] my-3">
         {menuItems.map((items, index) => (
           <li key={index}>
             <span className="">{items.title}</span>

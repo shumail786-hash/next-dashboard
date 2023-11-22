@@ -20,4 +20,16 @@
   .t-table td {
     @apply p-[8px] text-[13px];
   }
+  .form-input,
+  .form-textarea,
+  .form-select {
+    @apply p-[20px] bg-clrBgSoft text-clrText rounded mb-[20px] border border-slate-600 outline-none;
+  }
+  .form-input,
+  .form-select {
+    @apply w-[45%];
+  }
+  .userform {
+    @apply p-4 border-2 border-bgGradient-2 outline-none rounded bg-clrBg-1 text-white my-2;
+  }
 }
