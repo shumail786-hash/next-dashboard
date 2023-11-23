@@ -50,10 +50,20 @@ const UsersPage = async ({ searchParams }) => {
                 </td>
                 <td>{user.email}</td>
                 <td>{user.createdAt?.toString().slice(4, 16)}</td>
-                <td className="text-clrText">
-                  {user.isAdmin ? "Admin" : "User"}
+                <td
+                  className={`${
+                    user.isAdmin ? "text-lime-400" : "text-red-400"
+                  }`}
+                >
+                  {user.isAdmin ? "Admin" : "Client"}
                 </td>
-                <td>{user.isActive ? "Active" : "Not Active"}</td>
+                <td
+                  className={`${
+                    user.isActive ? "text-lime-400" : "text-red-400"
+                  }`}
+                >
+                  {user.isActive ? "Active" : "Not Active"}
+                </td>
                 <td>
                   <div className="flex gap-2">
                     <Link href={`/dashboard/users/${user._id}`}>

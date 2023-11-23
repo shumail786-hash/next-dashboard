@@ -55,7 +55,12 @@ const SingleUserComponent = async ({ params }) => {
             </option>
           </select>
           <label>isActive?</label>
-          <select name="isActive" id="isActive" className="userform">
+          <select
+            name="isActive"
+            id="isActive"
+            className="userform"
+            defaultValue={user?.isActive}
+          >
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>

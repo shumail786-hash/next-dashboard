@@ -80,7 +80,7 @@ export const deleteUser = async (formData) => {
 // Add Product
 export const addProduct = async (formData) => {
   "use server";
-  const { title, desc, price, stock, color, size } =
+  const { title, desc, price, stock, color, size, cat } =
     Object.fromEntries(formData);
   try {
     connectToDB();
@@ -92,6 +92,7 @@ export const addProduct = async (formData) => {
       stock,
       color,
       size,
+      cat,
     });
     await newProduct.save();
   } catch (error) {
@@ -119,8 +120,7 @@ export const deleteProduct = async (formData) => {
 // Update Product
 export const updateProduct = async (formData) => {
   "use server";
-  console.log(formData, "form Data");
-  const { id, title, price, stock, color, size, category, desc } =
+  const { id, title, price, stock, color, size, cat, desc } =
     Object.fromEntries(formData);
   try {
     connectToDB();
@@ -130,7 +130,7 @@ export const updateProduct = async (formData) => {
       stock,
       color,
       size,
-      category,
+      cat,
       desc,
     };
     Object.keys(updateField).forEach((key) => {

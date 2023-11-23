@@ -10,11 +10,11 @@ const AddProductPage = () => {
           className="form-input"
           required
         />
-        <select name="cat" id="cat" className="form-select">
-          <option value="general">Choose a Category</option>
-          <option value="kitchen">Kitchen</option>
-          <option value="phone">Phone</option>
-          <option value="computer">Computer</option>
+        <select className="form-select" name="cat">
+          <option value={"General"}>Choose a Category</option>
+          <option value={"Kitchen"}>Kitchen</option>
+          <option value={"Phone"}>Phone</option>
+          <option value={"Computer"}>Computer</option>
         </select>
         <input
           type="number"

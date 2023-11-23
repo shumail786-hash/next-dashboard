@@ -57,7 +57,6 @@ export const fetchProduct = async (id) => {
     connectToDB();
     const product = await Product.findById(id);
     return product;
-    console.log(product);
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch a Product!");

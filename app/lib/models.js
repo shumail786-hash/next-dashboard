@@ -45,7 +45,6 @@ const productSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     desc: {
       type: String,
@@ -64,13 +63,12 @@ const productSchema = new mongoose.Schema(
     },
     size: {
       type: String,
-      required: true,
     },
     stock: {
       type: Number,
       min: 0,
     },
-    category: {
+    cat: {
       type: String,
     },
   },

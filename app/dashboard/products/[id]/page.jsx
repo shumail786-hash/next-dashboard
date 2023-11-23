@@ -51,10 +51,18 @@ const SingleProduct = async ({ params }) => {
             placeholder={product.size}
             className="userform"
           />
-          <label>Category</label>
-          <select name="cat" id="cat" className="userform">
-            <option value="kitchen">Kitchen</option>
-            <option value="computers">Computers</option>
+          <label>Cat</label>
+          <select
+            name="cat"
+            id="cat"
+            className="userform"
+            defaultValue={product?.cat}
+          >
+            <option defaultValue={product?.cat === "Kitchen"}>Kitchen</option>
+            <option defaultValue={product?.cat === "Phone"}>Phone</option>
+            <option defaultValue={product?.cat === "Computers"}>
+              Computers
+            </option>
           </select>
           <label>Description</label>
           <textarea

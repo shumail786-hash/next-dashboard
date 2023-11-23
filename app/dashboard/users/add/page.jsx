@@ -32,7 +32,7 @@ const AddUserPage = () => {
           required
         />
         <select name="isAdmin" id="isAdmin" className="form-select">
-          <option value={false}>Is Admin</option>
+          <option value={false}>Is Admin?</option>
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </select>
