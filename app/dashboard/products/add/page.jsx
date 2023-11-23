@@ -35,7 +35,7 @@ const AddProductPage = () => {
           className="form-input"
         />
         <input
-          type="number"
+          type="text"
           placeholder="size"
           name="size"
           className="form-input"

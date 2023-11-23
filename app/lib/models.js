@@ -63,12 +63,15 @@ const productSchema = new mongoose.Schema(
       type: String,
     },
     size: {
-      type: Number,
+      type: String,
       required: true,
     },
     stock: {
       type: Number,
       min: 0,
+    },
+    category: {
+      type: String,
     },
   },
   { timestamps: true }

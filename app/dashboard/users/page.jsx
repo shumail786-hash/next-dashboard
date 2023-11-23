@@ -2,12 +2,12 @@ import Link from "next/link.js";
 import Search from "../../ui/dashboard/search/search.jsx";
 import Image from "next/image.js";
 import Pagination from "../../ui/dashboard/pagination/pagination.jsx";
-import { fetchUser } from "@/app/lib/data.js";
+import { fetchUsers } from "@/app/lib/data.js";
 import { deleteUser } from "@/app/lib/action.js";
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const { count, users } = await fetchUser(q, page);
+  const { count, users } = await fetchUsers(q, page);
 
   return (
     <div className="bg-clrBgSoft px-4 py-4 rounded-md mt-4">

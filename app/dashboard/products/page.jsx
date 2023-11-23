@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Search from "@/app/ui/dashboard/search/search";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
-import { fetchProduct } from "@/app/lib/data.js";
+import { fetchProducts } from "@/app/lib/data.js";
 import { deleteProduct } from "@/app/lib/action.js";
 const ProductsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const { count, products } = await fetchProduct(q, page);
+  const { count, products } = await fetchProducts(q, page);
   return (
     <div className="bg-clrBgSoft px-4 py-4 rounded-md mt-4">
       <div className="flex items-center justify-between">

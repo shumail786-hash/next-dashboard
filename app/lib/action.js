@@ -3,6 +3,7 @@ import { connectToDB } from "./database.js";
 import { Product, User } from "./models.js";
 import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache.js";
+
 export const addUser = async (formData) => {
   "use server";
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -30,6 +31,53 @@ export const addUser = async (formData) => {
   redirect("/dashboard/users");
 };
 
+//update User
+
+export const updateUser = async (formData) => {
+  "use server";
+  const { id, username, email, password, phone, address, isAdmin, isActive } =
+    Object.fromEntries(formData);
+  try {
+    connectToDB();
+    const updateField = {
+      username,
+      email,
+      password,
+      phone,
+      address,
+      isAdmin,
+      isActive,
+    };
+    Object.keys(updateField).forEach((key) => {
+      if (updateField[key] === "" || updateField[key] === undefined)
+        delete updateField[key];
+    });
+
+    await User.findByIdAndUpdate(id, updateField);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to Update User");
+  }
+  revalidatePath("/dashboard/users");
+  redirect("/dashboard/users");
+};
+
+// Delete a User
+export const deleteUser = async (formData) => {
+  "use server";
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+    await User.findByIdAndDelete(id);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to Delete a User.");
+  }
+  revalidatePath("/dashboard/users");
+};
+
+// Add Product
 export const addProduct = async (formData) => {
   "use server";
   const { title, desc, price, stock, color, size } =
@@ -54,6 +102,7 @@ export const addProduct = async (formData) => {
   redirect("/dashboard/products");
 };
 
+// Delete Product
 export const deleteProduct = async (formData) => {
   "use server";
   const { id } = Object.fromEntries(formData);
@@ -67,16 +116,32 @@ export const deleteProduct = async (formData) => {
   revalidatePath("/dashboard/products");
 };
 
-export const deleteUser = async (formData) => {
+// Update Product
+export const updateProduct = async (formData) => {
   "use server";
-  const { id } = Object.fromEntries(formData);
-
+  console.log(formData, "form Data");
+  const { id, title, price, stock, color, size, category, desc } =
+    Object.fromEntries(formData);
   try {
     connectToDB();
-    await User.findByIdAndDelete(id);
+    const updateField = {
+      title,
+      price,
+      stock,
+      color,
+      size,
+      category,
+      desc,
+    };
+    Object.keys(updateField).forEach((key) => {
+      if (updateField[key] === "" || updateField[key] === undefined)
+        delete updateField[key];
+    });
+    await Product.findByIdAndUpdate(id, updateField);
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to Delete a User.");
+    throw new Error("Failed to Update a Product.");
   }
-  revalidatePath("/dashboard/users");
+  revalidatePath("/dashboard/products");
+  redirect("/dashboard/products");
 };
