@@ -1,11 +1,13 @@
+"use server";
+
 import { redirect } from "next/navigation.js";
 import { connectToDB } from "./database.js";
 import { Product, User } from "./models.js";
 import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache.js";
+import { signIn } from "../auth.js";
 
 export const addUser = async (formData) => {
-  "use server";
   const { username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
   try {
@@ -34,7 +36,6 @@ export const addUser = async (formData) => {
 //update User
 
 export const updateUser = async (formData) => {
-  "use server";
   const { id, username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
   try {
@@ -64,7 +65,6 @@ export const updateUser = async (formData) => {
 
 // Delete a User
 export const deleteUser = async (formData) => {
-  "use server";
   const { id } = Object.fromEntries(formData);
 
   try {
@@ -79,7 +79,6 @@ export const deleteUser = async (formData) => {
 
 // Add Product
 export const addProduct = async (formData) => {
-  "use server";
   const { title, desc, price, stock, color, size, cat } =
     Object.fromEntries(formData);
   try {
@@ -105,7 +104,6 @@ export const addProduct = async (formData) => {
 
 // Delete Product
 export const deleteProduct = async (formData) => {
-  "use server";
   const { id } = Object.fromEntries(formData);
   try {
     connectToDB();
@@ -119,7 +117,6 @@ export const deleteProduct = async (formData) => {
 
 // Update Product
 export const updateProduct = async (formData) => {
-  "use server";
   const { id, title, price, stock, color, size, cat, desc } =
     Object.fromEntries(formData);
   try {
@@ -144,4 +141,14 @@ export const updateProduct = async (formData) => {
   }
   revalidatePath("/dashboard/products");
   redirect("/dashboard/products");
+};
+
+export const authenticate = async (prevState, formData) => {
+  const { username, password } = Object.fromEntries(formData);
+  try {
+    connectToDB();
+    await signIn("credentials", { username, password });
+  } catch (error) {
+    return "Wrong Credentials";
+  }
 };

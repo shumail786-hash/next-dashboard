@@ -12,7 +12,10 @@ import {
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink.jsx";
 import Image from "next/image.js";
-const Sidebar = () => {
+import { auth } from "@/app/auth.js";
+import { signOut } from "@/app/auth.js";
+const Sidebar = async () => {
+  const { user } = await auth();
   const menuItems = [
     {
       title: "Pages",
@@ -80,15 +83,17 @@ const Sidebar = () => {
     <div className="sticky top-10">
       <div className="flex items-center gap-5 mb-5">
         <Image
-          src="/noavatar.png"
+          src={user?.img || "/noavatar.png"}
           alt="avatar"
           width={40}
           height={40}
           className="rounded-full object-cover"
         />
         <div className="flex flex-col">
-          <span className="font-bold">Muhammad Shumail</span>
-          <span className="text-sm text-clrTextSoft">Admin</span>
+          <span className="font-bold capitalize">{user?.username}</span>
+          <span className="text-sm text-clrTextSoft">
+            {user?.isAdmin === true ? "Admin" : "Client"}
+          </span>
         </div>
       </div>
       <ul className="text-clrTextSoft font-bold text-[15px] my-3">
@@ -101,10 +106,17 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
-      <button className="px-4 py-4 my-5 flex items-center gap-2 cursor-pointer rounded-lg bg-transparent border-none w-full hover:bg-clrBg-2">
-        <MdLogout />
-        Logout
-      </button>
+      <form
+        action={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
+        <button className="px-4 py-4 my-5 flex items-center gap-2 cursor-pointer rounded-lg bg-transparent border-none w-full hover:bg-clrBg-2">
+          <MdLogout />
+          Logout
+        </button>
+      </form>
     </div>
   );
 };
