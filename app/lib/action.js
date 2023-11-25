@@ -143,12 +143,13 @@ export const updateProduct = async (formData) => {
   redirect("/dashboard/products");
 };
 
-export const authenticate = async (prevState, formData) => {
+export const authenticate = async (formData) => {
   const { username, password } = Object.fromEntries(formData);
   try {
     connectToDB();
-    await signIn("credentials", { username, password });
+    const user = await signIn("credentials", { username, password });
+    return user;
   } catch (error) {
-    return "Wrong Credentials";
+    return { error: "Wrong Credentials" };
   }
 };

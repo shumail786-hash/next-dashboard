@@ -41,17 +41,17 @@ export const { signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.username = user.username;
-        token.img = user.img;
-        token.isAdmin = user.isAdmin;
+        token.username = await user.username;
+        token.img = await user.img;
+        token.isAdmin = await user.isAdmin;
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
-        session.user.username = token.username;
-        session.user.img = token.img;
-        session.user.isAdmin = token.isAdmin;
+        session.user.username = await token.username;
+        session.user.img = await token.img;
+        session.user.isAdmin = await token.isAdmin;
       }
       return session;
     },
